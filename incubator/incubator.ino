@@ -5,6 +5,7 @@
 #define FAN_PIN 8
 #define LAMP_PIN 10
 #define DHT22_PIN 9
+#define BUZZER_PIN 13
 
 dht DHT;
 unsigned long time;
@@ -33,6 +34,18 @@ void turnOffLamp()
 {
    digitalWrite(LAMP_PIN,LOW);
 }
+
+void turnOnBuzzer()
+{
+  digitalWrite(BUZZER_PIN,HIGH);
+}
+
+
+void turnOffBuzzer()
+{
+  digitalWrite(BUZZER_PIN,LOW);
+}
+
 float temp = 0;
 float hum  = 0;
 
@@ -113,7 +126,13 @@ void loop()
   else{
     turnOffLamp();
   }
-  
+  if(hum > 62)
+  {
+    turnOnBuzzer();
+  }
+  else{
+    turnOffBuzzer();
+  }
   
   delay(2000); 
   wdt_reset();
